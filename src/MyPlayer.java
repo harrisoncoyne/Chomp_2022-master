@@ -47,14 +47,20 @@ public class MyPlayer {
         }
 
         for (int z = (b - 1); z >= 0; z--) {            // second column
-            if (a >= z && z >= c) {
+            if (z >= c) {
                 System.out.println((a) + "" + (z) + "" + (c));
+            }
+            else {
+                System.out.println((a) + "" + (z) + "" + (z));
             }
         }
 
         for (int z = (a - 1); z >= 0; z--) {            //first column
-            if (z >= b && b >= c) {
+            if (z >= b) {
                 System.out.println((z) + "" + (b) + "" + (c));
+            }
+            else{
+                System.out.println((z) + "" + (z) + "" + (z));
             }
         }
 
