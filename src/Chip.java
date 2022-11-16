@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Arrays;
 
 public class Chip {
     //variables
@@ -18,3 +19,18 @@ public class Chip {
     }
 
 }
+
+
+//    public void checkLose(int a,int b,int c){
+//        int column1 = a;
+//        int column2 = b;
+//        int column3 = c;
+//
+//        for(int[] x : tempBoard.boards){
+//            for (Board z: winBoards){
+//                if(Arrays.toString(x).equals(column1 + "" + column2 + "" + column3)){
+//                    System.out.println("lose");
+//                }
+//            }
+//        }
+//    }
