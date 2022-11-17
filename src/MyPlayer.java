@@ -8,37 +8,26 @@ public class MyPlayer {
     public Chip[][] gameBoard;
 
     public int[] columns;
-    //public int[] columns10;
-
-    public int counter;
 
     public int column;
     public int row;
 
-    Point myMove;
+    public Point myMove;
 
-    int[] cols3 = new int[3];
-    int[] cols10 = new int[10];
+    int[] cols = new int[10];
 
 
-   ArrayList<Board> boards = new ArrayList<Board>();
-
+    ArrayList<Board> boards3 = new ArrayList<Board>();
     ArrayList<Board> winBoards3 = new ArrayList<Board>();
     ArrayList<Board> loseBoards3 = new ArrayList<Board>();
 
+    ArrayList<Board10> boards10 = new ArrayList<Board10>();
     ArrayList<Board10> winBoards10 = new ArrayList<Board10>();
     ArrayList<Board10> loseBoards10 = new ArrayList<Board10>();
 
     public boolean select;
 
     public MyPlayer() {
-        counter = 0;
-
-//        columns = new int[3];
-//
-//        for (int x = 0; x<3; x++) {
-//            columns[x] = 3;
-//        }
 
         columns = new int[10];
         for (int x = 0; x < 10; x++) {
@@ -52,20 +41,33 @@ public class MyPlayer {
         System.out.println();
 
         //3x3 board
-        printAllBoards3();
-        System.out.println();
-        System.out.println("lose boards (3)");
-        for (Board x : loseBoards3) {
-            System.out.println(x.boards[0] + " " + x.boards[1] + " " + x.boards[2] + " : " + x.move.x + ", " + x.move.y);
-        }
-        System.out.println();
-        System.out.println("win boards (3)");
-        for (Board x : winBoards3) {
-            System.out.println(x.boards[0] + " " + x.boards[1] + " " + x.boards[2] + " : " + x.move.x + ", " + x.move.y);
-        }
+        //printAllBoards3();
+
+
+//        System.out.println();
+//        System.out.println("lose boards (3)");
+//        for (Board x : loseBoards3) {
+//            System.out.println(x.boards[0] + " " + x.boards[1] + " " + x.boards[2] + " : " + x.move.x + ", " + x.move.y);
+//        }
+//        System.out.println();
+//        System.out.println("win boards (3)");
+//        for (Board x : winBoards3) {
+//            System.out.println(x.boards[0] + " " + x.boards[1] + " " + x.boards[2] + " : " + x.move.x + ", " + x.move.y);
+//        }
+
+//        boards = (ArrayList<Board>) winBoards3.clone();
+//        boards.addAll(loseBoards3);
+
+//        System.out.println();
+//        System.out.println("all boards (3)");
+//        for (Board x : boards) {
+//            System.out.println(x.boards[0] + " " + x.boards[1] + " " + x.boards[2] + " : " + x.move.x + ", " + x.move.y);
+//        }
 
 //        10x10 board
-//        printAllBoards10();
+        printAllBoards10();
+        boards10 = (ArrayList<Board10>) winBoards10.clone();
+        boards10.addAll(loseBoards10);
 //        System.out.println();
 //        System.out.println("lose boards (10)");
 //        for (Board10 x : loseBoards10){
@@ -109,12 +111,12 @@ public class MyPlayer {
                                     for (int h = 0; h <= g; h++) {
                                         for (int i = 0; i <= h; i++) {
                                             for (int j = 0; j <= i; j++) {
-                                                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j);
+                                                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j);
 
-                                                System.out.println("move boards");
+                                                //System.out.println("move boards");
                                                 printAllMoveBoards10(a, b, c, d, e, f, g, h, i, j);
 
-                                                System.out.println();
+                                                //System.out.println();
 
                                             }
                                         }
@@ -137,10 +139,7 @@ public class MyPlayer {
         for (int z = (c - 1); z >= 0; z--) {            // third column
             column = z;
             row = 2;
-            System.out.println((a) + "" + (b) + "" + (z) + ":" + " (" + column + "," + row + ")");
-
-            boards.add(new Board(a,b,z,new Point (column,row)));
-
+            System.out.println((a) + "" + (b) + "" + (z) + ":" + " (" + column + "," + row  + ")");
             if (checkLose3(a, b, z) == true) {
                 hasLoser = true;
                 move = new Point(column, row);
@@ -152,18 +151,12 @@ public class MyPlayer {
             row = 1;
             if (z < c) {
                 System.out.println((a) + "" + (z) + "" + (z) + ":" + " (" + column + "," + row + ")");
-
-                boards.add(new Board(a,z,z,new Point (column,row)));
-
                 if (checkLose3(a, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else {
                 System.out.println((a) + "" + (z) + "" + (c) + ":" + " (" + column + "," + row + ")");
-
-                boards.add(new Board(a,z,c,new Point (column,row)));
-
                 if (checkLose3(a, z, c) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
@@ -176,27 +169,18 @@ public class MyPlayer {
             row = 0;
             if (z < b && z < c) {
                 System.out.println((z) + "" + (z) + "" + (z) + ":" + " (" + column + "," + row + ")");
-
-                boards.add(new Board(z,z,z,new Point (column,row)));
-
                 if (checkLose3(z, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < b) {
                 System.out.println((z) + "" + (z) + "" + (c) + ":" + " (" + column + "," + row + ")");
-
-                boards.add(new Board(z,z,c,new Point (column,row)));
-
                 if (checkLose3(z, z, c) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else {
                 System.out.println((z) + "" + (b) + "" + (c) + ":" + " (" + column + "," + row + ")");
-
-                boards.add(new Board(z,b,c,new Point (column,row)));
-
                 if (checkLose3(z, b, c) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
@@ -225,7 +209,7 @@ public class MyPlayer {
         for (int z = (j - 1); z >= 0; z--) {            // 10th column
             column = z;
             row = 9;
-            System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + z + ":" + " (" + column + "," + row + ")");
+            //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + z + ":" + " (" + column + "," + row + ")");
             if (checkLose10(a, b, c, d, e, f, g, h, i, z) == true) {
                 hasLoser = true;
                 move = new Point(column, row);
@@ -236,13 +220,13 @@ public class MyPlayer {
             column = z;
             row = 8;
             if (z < j) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, f, g, h, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, f, g, h, z, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
@@ -254,19 +238,19 @@ public class MyPlayer {
             column = z;
             row = 7;
             if (z < i && z < j) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, f, g, z, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < i) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, f, g, z, z, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, f, g, z, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
@@ -278,25 +262,25 @@ public class MyPlayer {
             column = z;
             row = 6;
             if (z < h && z < i && z < j) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, f, z, z, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < h && z < i) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, f, z, z, z, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < h) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, f, z, z, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, f, z, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
@@ -308,31 +292,31 @@ public class MyPlayer {
             column = z;
             row = 5;
             if (z < g && z < h && z < i && z < j) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, z, z, z, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < g && z < h && z < i) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, z, z, z, z, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < g && z < h) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, z, z, z, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < g) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, z, z, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, e, z, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
@@ -344,37 +328,37 @@ public class MyPlayer {
             column = z;
             row = 4;
             if (z < f && z < g && z < h && z < i && z < j) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, z, z, z, z, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < f && z < g && z < h && z < i) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, z, z, z, z, z, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < f && z < g && z < h) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, z, z, z, z, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < f && z < g) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, z, z, z, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < f) {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, z, z, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else {
-                System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + d + " " + z + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, d, z, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
@@ -386,43 +370,43 @@ public class MyPlayer {
             column = z;
             row = 3;
             if (z < e && z < f && z < g && z < h && z < i && z < j) {
-                System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, z, z, z, z, z, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < e && z < f && z < g && z < h && z < i) {
-                System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, z, z, z, z, z, z, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < e && z < f && z < g && z < h) {
-                System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, z, z, z, z, z, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < e && z < f && z < g) {
-                System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, z, z, z, z, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < e && z < f) {
-                System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, z, z, z, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < e) {
-                System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + z + " " + z + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, z, z, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else {
-                System.out.println(a + " " + b + " " + c + " " + z + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + c + " " + z + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, c, z, e, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
@@ -434,49 +418,49 @@ public class MyPlayer {
             column = z;
             row = 2;
             if (z < d && z < e && z < f && z < g && z < h && z < i && z < j) {
-                System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, z, z, z, z, z, z, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < d && z < e && z < f && z < g && z < h && z < i) {
-                System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, z, z, z, z, z, z, z, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < d && z < e && z < f && z < g && z < h) {
-                System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, z, z, z, z, z, z, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < d && z < e && z < f && z < g) {
-                System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, z, z, z, z, z, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < d && z < e && z < f) {
-                System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, z, z, z, z, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < d && z < e) {
-                System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + z + " " + z + " " + z + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, z, z, z, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < d) {
-                System.out.println(a + " " + b + " " + z + " " + z + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + z + " " + z + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, z, z, e, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else {
-                System.out.println(a + " " + b + " " + z + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + b + " " + z + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, b, z, d, e, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
@@ -488,55 +472,55 @@ public class MyPlayer {
             column = z;
             row = 1;
             if (z < c && z < d && z < e && z < f && z < g && z < h && z < i && z < j) {
-                System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, z, z, z, z, z, z, z, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < c && z < d && z < e && z < f && z < g && z < h && z < i) {
-                System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, z, z, z, z, z, z, z, z, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < c && z < d && z < e && z < f && z < g && z < h) {
-                System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, z, z, z, z, z, z, z, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < c && z < d && z < e && z < f && z < g) {
-                System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, z, z, z, z, z, z, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < c && z < d && z < e && z < f) {
-                System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, z, z, z, z, z, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < c && z < d && z < e) {
-                System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, z, z, z, z, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < c && z < d) {
-                System.out.println(a + " " + z + " " + z + " " + z + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + z + " " + z + " " + z + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, z, z, z, e, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z < c) {
-                System.out.println(a + " " + z + " " + z + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + z + " " + z + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, z, z, d, e, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else {
-                System.out.println(a + " " + z + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + z + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(a, z, c, d, e, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
@@ -548,71 +532,61 @@ public class MyPlayer {
             column = z;
             row = 0;
             if (z > b && z < c && z < d && z < e && z < f && z < g && z < h && z < i && z < j) {
-                System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
+                //System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(z, z, z, z, z, z, z, z, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z > b && z < c && z < d && z < e && z < f && z < g && z < h && z < i) {
-                System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(z, z, z, z, z, z, z, z, z, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z > b && z < c && z < d && z < e && z < f && z < g && z < h) {
-                System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(a + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(z, z, z, z, z, z, z, z, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z > b && z < c && z < d && z < e && z < f && z < g) {
-                System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(z, z, z, z, z, z, z, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z > b && z < c && z < d && z < e && z < f) {
-                System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(z, z, z, z, z, z, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z > b && z < c && z < d && z < e) {
-                System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(z, z, z, z, z, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z > b && z < c && z < d) {
-                System.out.println(z + " " + z + " " + z + " " + z + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(z + " " + z + " " + z + " " + z + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(z, z, z, z, e, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z > b && z < c) {
-                System.out.println(z + " " + z + " " + z + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(z + " " + z + " " + z + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(z, z, z, d, e, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
             } else if (z > b) {
-                System.out.println(z + " " + z + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
+                //System.out.println(z + " " + z + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(z, z, c, d, e, f, g, h, i, j) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
                 }
-            }
-
-//            else {
-//                System.out.println(z + " " + b + " " + c + " " + d + " " + e + " " + f + " " + g + " " + h + " " + i + " " + j + ":" + " (" + column + "," + row + ")");
-//                if (checkLose10(z,b,c,d,e,f,g,h,i,j) == true) {
-//                  hasLoser = true;
-//                  move = new Point(column,row);
-//                }
-//            }
-
-            else {
-                System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
+            } else {
+                //System.out.println(z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + " " + z + ":" + " (" + column + "," + row + ")");
                 if (checkLose10(z, z, z, z, z, z, z, z, z, z) == true) {
                     hasLoser = true;
                     move = new Point(column, row);
@@ -622,14 +596,10 @@ public class MyPlayer {
 
 
         if (hasLoser == true) {
-            System.out.println("win board");
             winBoards10.add(new Board10(a, b, c, d, e, f, g, h, i, j, move));
         } else {
-            System.out.println("lose board");
             loseBoards10.add(new Board10(a, b, c, d, e, f, g, h, i, j, move));
         }
-        // if you find a losing board that equals a result, you know the original board abc is a winner
-        // if you don't find a losing board, the original abc board is a loser
     }
 
     public boolean checkLose3(int a, int b, int c) {
@@ -675,75 +645,43 @@ public class MyPlayer {
 
     public Point move(Chip[][] pBoard) {
 
+        cols = new int[10];
+        myMove = new Point (0,0);
 
-
-
-        System.out.println("MyPlayer Move");
+        for(int y = 0; y < boards10.size(); y++) {
+            System.out.println("MyPlayer Move: " + boards10.get(y).move);
+        }
 
         gameBoard = pBoard;
-        columns = checkChips(gameBoard);
+        checkChips(gameBoard);
 
-//        int column = 0;
-//        int row = 0;
+        for(int y = 0; y < boards10.size(); y++) {
+            boolean check = true;
 
-//        int column = cols3;
-//        int row = this.row;
-
-//        row = 1;
-//        column = 1;
-
-//        for (int x = 0; x<10; x++) {
-//            column = checkChips(column,row);
-//        }
-        //for(int y = 0; y < boards.size(); y++) {
-            for (int x = 0; x < 3; x++) {
-                for (int z = 0; z < 3; z++) {
-                    if (boards.get(column).boards[x] == cols3[z]) {
-                        //myMove = boards.get(row).move;
-                        myMove = new Point(row,cols3[z]);
-                        //myMove = new Point(row, cols3[z]);
-                    }
+            for (int z = 0; z < 10; z++) {
+                if (boards10.get(y).boards[z] != cols[z]) {
+                    check = false;
                 }
             }
+            if (check == true) {
+                System.out.println(boards10.get(y).move);
+                myMove = boards10.get(y).move;
+                break;
+            }
 
-
-        //}
-
-//        for(int x = 0; x < boards.size(); x++){
-//            for (int z = 0; z < cols10.length; z++){
-//                if(boards.get(x).boards[x] == cols10[z]) {
-//                    myMove = boards.get(x).move;
-//                }
-//            }
-//        }
-//        /***
-//         * This code will run each time the "MyPlayer" button is pressed.
-//         * Add your code to return the row and the column of the chip you want to take.
-//         * You'll be returning a data type called Point which consists of two integers.
-//         */
-
+        }
         return myMove;
     }
 
-    public int[] checkChips(Chip[][] gameBoard) {
+    public void checkChips(Chip[][] gameBoard) {
 
         for (int c = 0; c < 3; c++){
             for( int r = 0; r < 3; r++){
                 if(gameBoard[r][c].isAlive == true) {
-                    cols3[c]++; //cols[c] = cols[c] + 1
+                    cols[c]++;
                 }
             }
         }
-        return cols3;
-
-//        for (int c = 0; c < 10; c++){
-//            for( int r = 0; r < 10; r++){
-//                if(gameBoard[r][c].isAlive == true) {
-//                    cols10[c]++; //cols[c] = cols[c] + 1
-//                }
-//            }
-//        }
-//        return cols10;
     }
 
 }
