@@ -1,6 +1,4 @@
-# Chomp_2022
-Chomp for the 2022-2023 school year.
+CHOMP FALL 2022 (COYNE)
+Working 3x3 and 10x10 Boards
 
-This is the blank version, safe for students to pull as a clean slate and start editing.
-
-Edits should go into `MyPlayer.java` class.
+Link to preview: https://drive.google.com/file/d/1Fzj4TtOUGUY1C6V4TDR7MPnwORhRre_9/view?usp=sharing
